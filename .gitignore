@@ -1,0 +1,14 @@
+# Archivos generados al compilar o ejecutar
+bin/
+runtime-tmp/
+*.class
+
+# Datos locales: bases de datos y archivos subidos por los usuarios
+*.db
+datos-demo/
+archivos_web/
+archivos_subidos/
+
+# Editores
+.vscode/
+.idea/

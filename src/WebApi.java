@@ -64,6 +64,10 @@ public final class WebApi {
                 else CambioRol.aEstudiante(u.getIdUsuario());
                 ServidorWeb.invalidar(u.getIdUsuario()); ServidorWeb.iniciarSesion(x, u.getIdUsuario());
                 mensaje = "Tipo de cuenta actualizado."; break;
+            case "autorizacion":
+                rol(u, "DIRECTOR");
+                AutorizacionCorreos.autorizar(texto(f, "correo", 120), texto(f, "tipo", 20));
+                mensaje = "Correo autorizado. Ya puede crear su cuenta."; break;
             case "tutor-borrador": case "tutor-enviar":
                 guardarSolicitudTutor(u, f, ruta.equals("tutor-enviar"));
                 mensaje = ruta.equals("tutor-enviar") ? "Solicitud enviada al revisor seleccionado." : "Borrador guardado."; break;
@@ -177,9 +181,11 @@ public final class WebApi {
             exigir(Seguridad.contrasenaValida(clave), Seguridad.requisitosContrasena());
             exigir(clave.equals(texto(f, "confirmacion", 200)), "Las contraseñas no coinciden.");
             exigir(Perfil_usuario.verificarCorreo(correo), "Este correo ya tiene una cuenta. Inicia sesión o reactívala.");
-            String rol = texto(f, "rol", 20);
-            exigir(Set.of("ESTUDIANTE", "TUTOR").contains(rol), "Selecciona estudiante o tutor.");
-            WebDatos.ejecutar("INSERT INTO usuarios(nombre,correoElectronico,contrasena,fotoPerfil,descripcion,banner,tipoUsuario,estadoCuenta) VALUES(?,?,?,'','','',?,'ACTIVA')", texto(f, "nombre", 100), correo, ClaveSegura.proteger(clave), rol);
+            String elegido = texto(f, "rol", 20);
+            exigir(Set.of("ESTUDIANTE", "TUTOR").contains(elegido), "Selecciona estudiante o tutor.");
+            // El rol autorizado para el correo (docente o director) prevalece sobre el enviado por el navegador.
+            Perfil_usuario.TipoUsuario rol = AutorizacionCorreos.rolPara(correo, Perfil_usuario.TipoUsuario.valueOf(elegido));
+            WebDatos.ejecutar("INSERT INTO usuarios(nombre,correoElectronico,contrasena,fotoPerfil,descripcion,banner,tipoUsuario,estadoCuenta) VALUES(?,?,?,'','','',?,'ACTIVA')", texto(f, "nombre", 100), correo, ClaveSegura.proteger(clave), rol.name());
         }
         Perfil_usuario u = Perfil_usuario.iniciarSesion(correo, clave);
         exigir(u != null, "Correo o contraseña incorrectos, o cuenta inactiva.");

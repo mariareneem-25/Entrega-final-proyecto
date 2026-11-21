@@ -39,6 +39,7 @@ public final class WebDatos {
     }
     public static void preparar() {
         ConexionDB.crearTablas();
+        AutorizacionCorreos.preparar();
         new CalendarioDAO();
         new ChatDAO();
         ejecutar("CREATE TABLE IF NOT EXISTS web_archivos (id TEXT PRIMARY KEY, propietario INTEGER NOT NULL, "

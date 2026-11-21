@@ -47,6 +47,11 @@ public final class WebDatos {
         ejecutar("CREATE TABLE IF NOT EXISTS resenas_tutor (id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "idEstudiante INTEGER NOT NULL, idTutor INTEGER NOT NULL, puntuacion INTEGER NOT NULL CHECK(puntuacion BETWEEN 1 AND 5), "
                 + "texto TEXT NOT NULL, fecha TEXT NOT NULL, UNIQUE(idEstudiante,idTutor))");
+        // Reseñas anónimas y calificación interna (1 a 10) que docentes y directores dan a los tutores.
+        columna("resenas_tutor", "anonimo", "INTEGER NOT NULL DEFAULT 0");
+        columna("solicitudes_tutor", "calificacion", "INTEGER");
+        columna("solicitudes_tutor", "calificadoPor", "INTEGER");
+        columna("solicitudes_tutor", "fechaCalificacion", "TEXT");
         columna("logros", "tipo", "TEXT NOT NULL DEFAULT 'TEMA'");
         columna("logros", "fechaObjetivo", "TEXT");
         for (String t : List.of("reservas", "solicitudes_calendario")) {

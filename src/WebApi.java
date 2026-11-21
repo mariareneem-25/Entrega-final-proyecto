@@ -77,8 +77,17 @@ public final class WebApi {
                 exigir(st != null && st.getEstado() == EstadoSolicitud.PENDIENTE && Objects.equals(st.getIdRevisor(), u.getIdUsuario()), "No puedes revisar esta solicitud.");
                 exigir(Perfil_usuario.buscarPorId(st.getIdTutor()).getEstadoCuenta() == Perfil_usuario.EstadoCuenta.ACTIVA, "La cuenta del solicitante no está activa.");
                 boolean aceptar = booleano(f, "aceptar");
+                int calificacionRevision = aceptar ? calificacionOpcional(f) : 0;
                 exigir(aceptar ? validaciones.aprobar(st, u.getIdUsuario()) : validaciones.rechazar(st.getIdTutor(), u.getIdUsuario(), texto(f, "motivo", 1500)), "La solicitud ya fue respondida.");
+                if (calificacionRevision > 0) registrarCalificacion(st.getIdTutor(), calificacionRevision, u.getIdUsuario());
                 mensaje = aceptar ? "Tutor aprobado." : "Solicitud rechazada con su motivo."; break;
+            case "tutor-calificar":
+                rol(u, "DOCENTE", "DIRECTOR");
+                int tutorCalificado = numero(f, "id"), nota = calificacionOpcional(f);
+                exigir(nota > 0, "Indica una calificación del 1 al 10.");
+                exigir(ConexionDB.existe("SELECT 1 FROM solicitudes_tutor WHERE idTutor=? AND estado='APROBADO'", tutorCalificado), "Solo se puede calificar a un tutor aprobado.");
+                registrarCalificacion(tutorCalificado, nota, u.getIdUsuario());
+                mensaje = "Calificación guardada. Reemplaza a la anterior."; break;
             case "solicitud":
                 rol(u, "ESTUDIANTE");
                 int tutor = numero(f, "tutor"); String materia = texto(f, "materia", 120);
@@ -108,8 +117,9 @@ public final class WebApi {
                 ServidorWeb.json(x, 200, subir(u, f)); return;
             case "marca":
                 rol(u, "ESTUDIANTE", "TUTOR");
-                LocalDate dia = LocalDate.parse(texto(f, "fecha", 20));
+                LocalDate dia = fecha(f, "fecha");
                 String marca = texto(f, "tipo", 20);
+                exigir(Set.of("OCUPADO", "PREFERENCIA", "QUITAR").contains(marca), "Tipo de marca inválido.");
                 if (marca.equals("QUITAR")) calendario.eliminarMarcas(u.getIdUsuario(), List.of(dia));
                 else calendario.guardarMarcas(u.getIdUsuario(), List.of(dia), CalendarioDAO.TipoMarca.valueOf(marca));
                 break;
@@ -118,7 +128,7 @@ public final class WebApi {
                 String modalidad = texto(f, "modalidad", 20);
                 exigir(Set.of("VIRTUAL", "PRESENCIAL").contains(modalidad), "Modalidad inválida.");
                 String lugar = texto(f, "lugar", 300);
-                int prop = calendario.solicitarReserva(u.getIdUsuario(), Integer.parseInt(cf.getEstudiante().getIdUsuario()), Integer.parseInt(cf.getTutor().getIdUsuario()), LocalDate.parse(texto(f, "fecha", 20)), LocalTime.parse(texto(f, "hora", 20)));
+                int prop = calendario.solicitarReserva(u.getIdUsuario(), Integer.parseInt(cf.getEstudiante().getIdUsuario()), Integer.parseInt(cf.getTutor().getIdUsuario()), fecha(f, "fecha"), hora(f, "hora"));
                 WebDatos.ejecutar("UPDATE solicitudes_calendario SET modalidad=?,lugar=? WHERE idSolicitudCal=?", modalidad, lugar, prop);
                 mensaje = "Fecha propuesta. Aparecerá en ambos calendarios cuando la otra persona la acepte."; break;
             case "fecha-responder":
@@ -138,7 +148,7 @@ public final class WebApi {
                 rol(u, "ESTUDIANTE");
                 String tema = texto(f, "tema", 300), categoria = texto(f, "tipo", 20), objetivo = opcional(f, "fecha", 20);
                 exigir(Set.of("TEMA", "META", "PENDIENTE", "FECHA").contains(categoria), "Tipo de progreso inválido.");
-                if (!objetivo.isEmpty()) LocalDate.parse(objetivo);
+                if (!objetivo.isEmpty()) fecha(f, "fecha");
                 agregarLogro(u, tema, categoria, objetivo); break;
             case "logro-estado":
                 rol(u, "ESTUDIANTE");
@@ -162,7 +172,7 @@ public final class WebApi {
                 int idTutor = numero(f, "tutor"), puntuacion = numero(f, "puntuacion");
                 exigir(puntuacion >= 1 && puntuacion <= 5, "La puntuación debe ser de 1 a 5.");
                 exigir(recibioTutoria(u.getIdUsuario(), idTutor), "Podrás dejar una reseña después de una tutoría confirmada y finalizada.");
-                WebDatos.ejecutar("INSERT INTO resenas_tutor(idEstudiante,idTutor,puntuacion,texto,fecha) VALUES(?,?,?,?,?) ON CONFLICT(idEstudiante,idTutor) DO UPDATE SET puntuacion=excluded.puntuacion,texto=excluded.texto,fecha=excluded.fecha", u.getIdUsuario(), idTutor, puntuacion, texto(f, "texto", 2000), LocalDateTime.now().toString());
+                WebDatos.ejecutar("INSERT INTO resenas_tutor(idEstudiante,idTutor,puntuacion,texto,fecha,anonimo) VALUES(?,?,?,?,?,?) ON CONFLICT(idEstudiante,idTutor) DO UPDATE SET puntuacion=excluded.puntuacion,texto=excluded.texto,fecha=excluded.fecha,anonimo=excluded.anonimo", u.getIdUsuario(), idTutor, puntuacion, texto(f, "texto", 2000), LocalDateTime.now().toString(), booleano(f, "anonimo") ? 1 : 0);
                 mensaje = "Reseña guardada."; break;
             default: throw new ServidorWeb.ErrorHttp(404, "No existe esa acción.");
         }
@@ -216,6 +226,8 @@ public final class WebApi {
         r.put("miSolicitud", u.getTipoUsuario() == Perfil_usuario.TipoUsuario.TUTOR ? WebDatos.consultar("SELECT * FROM solicitudes_tutor WHERE idTutor=?", id) : List.of());
         boolean revisor = Set.of("DOCENTE", "DIRECTOR").contains(u.getTipoUsuario().name());
         r.put("validaciones", revisor ? WebDatos.consultar("SELECT s.*,u.correoElectronico AS correo FROM solicitudes_tutor s JOIN usuarios u ON u.idUsuario=s.idTutor WHERE s.estado='PENDIENTE' AND s.idRevisor=? AND u.estadoCuenta='ACTIVA' ORDER BY s.idTutor", id) : List.of());
+        r.put("tutoresAprobados", revisor ? WebDatos.consultar("SELECT s.idTutor AS id,u.nombre,s.materias,s.calificacion FROM solicitudes_tutor s JOIN usuarios u ON u.idUsuario=s.idTutor WHERE s.estado='APROBADO' AND u.estadoCuenta='ACTIVA' ORDER BY u.nombre") : List.of());
+        r.put("autorizados", u.getTipoUsuario() == Perfil_usuario.TipoUsuario.DIRECTOR ? WebDatos.consultar("SELECT a.correo,a.tipo,EXISTS(SELECT 1 FROM usuarios x WHERE lower(x.correoElectronico)=a.correo) AS registrado FROM correos_autorizados a WHERE a.tipo IN ('docente','director') ORDER BY a.correo") : List.of());
         return r;
     }
 
@@ -234,8 +246,11 @@ public final class WebApi {
         r.put("reservas", ocupadas);
         if (publico) {
             SolicitudTutor ficha = validaciones.obtener(id); r.put("materias", Objects.toString(ficha.getMaterias(), ""));
-            r.put("resenas", WebDatos.consultar("SELECT r.puntuacion,r.texto,r.fecha,u.nombre FROM resenas_tutor r JOIN usuarios u ON u.idUsuario=r.idEstudiante WHERE r.idTutor=? ORDER BY r.fecha DESC", id));
+            r.put("resenas", WebDatos.consultar("SELECT r.puntuacion,r.texto,r.fecha,CASE WHEN r.anonimo=1 THEN 'Estudiante anónimo' ELSE u.nombre END AS nombre FROM resenas_tutor r JOIN usuarios u ON u.idUsuario=r.idEstudiante WHERE r.idTutor=? ORDER BY r.fecha DESC", id));
             r.put("puedeResenar", u.getTipoUsuario() == Perfil_usuario.TipoUsuario.ESTUDIANTE && recibioTutoria(u.getIdUsuario(), id));
+        }
+        if (publico && Set.of("DOCENTE", "DIRECTOR").contains(u.getTipoUsuario().name())) {
+            r.put("calificacion", primera(WebDatos.consultar("SELECT calificacion FROM solicitudes_tutor WHERE idTutor=?", id)).get("calificacion"));
         }
         if (acceso.puedeVerInformacionDe(u, id)) r.put("logros", WebDatos.consultar("SELECT tema,completado,tipo,fechaObjetivo AS fecha FROM logros WHERE idUsuario=?", id));
         return r;
@@ -459,6 +474,29 @@ public final class WebApi {
     private static int numero(Map<String, String> f, String campo) {
         try { int n = Integer.parseInt(texto(f, campo, 12)); exigir(n > 0, "Identificador inválido."); return n; }
         catch (NumberFormatException e) { throw new IllegalArgumentException("El campo " + campo + " debe ser un número válido."); }
+    }
+    /** Fecha en formato aaaa-MM-dd; si no es válida responde con un mensaje claro en lugar de un error interno. */
+    private static LocalDate fecha(Map<String, String> f, String campo) {
+        try { return LocalDate.parse(texto(f, campo, 20)); }
+        catch (java.time.format.DateTimeParseException e) { throw new IllegalArgumentException("La fecha no es válida. Usa el formato aaaa-MM-dd."); }
+    }
+    /** Hora en formato HH:mm; si no es válida responde con un mensaje claro. */
+    private static LocalTime hora(Map<String, String> f, String campo) {
+        try { return LocalTime.parse(texto(f, campo, 20)); }
+        catch (java.time.format.DateTimeParseException e) { throw new IllegalArgumentException("La hora no es válida. Usa el formato HH:mm."); }
+    }
+    /** Calificación opcional de 1 a 10; devuelve 0 cuando no se envió. */
+    private static int calificacionOpcional(Map<String, String> f) {
+        String valor = opcional(f, "calificacion", 3);
+        if (valor.isEmpty()) return 0;
+        try {
+            int nota = Integer.parseInt(valor);
+            exigir(nota >= 1 && nota <= 10, "La calificación debe ser un número del 1 al 10.");
+            return nota;
+        } catch (NumberFormatException e) { throw new IllegalArgumentException("La calificación debe ser un número del 1 al 10."); }
+    }
+    private static void registrarCalificacion(int idTutor, int calificacion, int idRevisor) {
+        WebDatos.ejecutar("UPDATE solicitudes_tutor SET calificacion=?,calificadoPor=?,fechaCalificacion=? WHERE idTutor=?", calificacion, idRevisor, LocalDateTime.now().toString(), idTutor);
     }
     private static boolean booleano(Map<String, String> f, String campo) { return Set.of("true", "1", "on").contains(f.getOrDefault(campo, "false")); }
 }

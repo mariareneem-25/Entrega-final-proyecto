@@ -42,6 +42,8 @@ public final class ServidorWeb {
             catch (IllegalArgumentException | IllegalStateException e) {
                 if (e.getCause() != null) e.printStackTrace();
                 json(x, 400, WebDatos.mapa("error", e.getMessage()));
+            } catch (java.time.DateTimeException e) {
+                json(x, 400, WebDatos.mapa("error", "La fecha u hora indicada no es válida."));
             } catch (Exception e) {
                 e.printStackTrace();
                 json(x, 500, WebDatos.mapa("error", "Ocurrió un problema al procesar la solicitud. Revisa la ventana de Java."));

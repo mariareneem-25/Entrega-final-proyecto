@@ -6,6 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Casos de uso de las solicitudes de tutoría: el estudiante envía solicitudes, el tutor las consulta, las acepta o las rechaza con un motivo,
+ * y cada acción valida que la cuenta tenga permiso para realizarla.
+ */
 public class Gestionarsolicitudes {
 
     private final Controlaracceso acceso = new Controlaracceso();

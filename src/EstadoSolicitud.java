@@ -1,3 +1,7 @@
+/**
+ * Estados por los que pasa una solicitud: PENDIENTE, APROBADO, RECHAZADO y BORRADOR.
+ * BORRADOR solo se usa en la solicitud de tutor que se guardó sin enviar.
+ */
 public enum EstadoSolicitud {
     PENDIENTE,
     APROBADO,

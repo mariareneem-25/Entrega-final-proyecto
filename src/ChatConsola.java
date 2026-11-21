@@ -9,11 +9,12 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-// pantallas del chat entre un estudiante y un tutor
-// los chats NO se buscan ni se crean a mano: se habilitan cuando el tutor acepta la solicitud del estudiante
-// dentro de cada chat se pueden mandar mensajes, imágenes y archivos, y solicitudes de calendario:
-// reservar una fecha o eliminar una fecha reservada (las acepta o rechaza la otra persona)
-
+/**
+ * pantallas del chat entre un estudiante y un tutor
+ * los chats NO se buscan ni se crean a mano: se habilitan cuando el tutor acepta la solicitud del estudiante
+ * dentro de cada chat se pueden mandar mensajes, imágenes y archivos, y solicitudes de calendario:
+ * reservar una fecha o eliminar una fecha reservada (las acepta o rechaza la otra persona)
+ */
 public class ChatConsola {
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM HH:mm");

@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Cuenta de usuario guardada en la base de datos: registro, inicio de sesión, edición de datos, estado de la cuenta (activa, suspendida o eliminada) y consultas por tipo.
+ */
 public class Perfil_usuario {
 
     public enum TipoUsuario {

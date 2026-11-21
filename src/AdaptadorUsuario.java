@@ -1,3 +1,7 @@
+/**
+ * Convierte una cuenta guardada ({@link Perfil_usuario}) en el objeto de dominio que corresponde a su tipo:
+ * {@link Estudiante}, {@link Tutor} o {@link Docente}. Los directores no tienen objeto de dominio propio y devuelven {@code null}.
+ */
 public class AdaptadorUsuario {
 
     public static Usuario convertir(Perfil_usuario perfil) {

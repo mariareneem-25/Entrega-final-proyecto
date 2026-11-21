@@ -8,6 +8,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Propuestas de fecha de tutoría entre estudiante y tutor y consulta de las fechas reservadas, en su versión original basada en el chat de tutoría ({@link HabilitarChat}).
+ * La versión web usa {@link CalendarioDAO}.
+ */
 public class GestionarCalendario {
 
     private final Controlaracceso acceso = new Controlaracceso();

@@ -1,3 +1,7 @@
+/**
+ * Reglas de acceso según el tipo de cuenta: quién puede enviar o gestionar solicitudes, usar el chat y el calendario o ver el progreso de un estudiante.
+ * Toda regla exige primero una sesión válida y una cuenta activa.
+ */
 public class Controlaracceso {
 
     public boolean sesionValida(Perfil_usuario usuario) {

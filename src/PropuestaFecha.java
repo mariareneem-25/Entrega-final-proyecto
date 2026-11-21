@@ -3,6 +3,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Propuesta de fecha y hora para una tutoría, hecha dentro de una solicitud de tutoría (versión original del calendario).
+ */
 public class PropuestaFecha {
 
     public static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

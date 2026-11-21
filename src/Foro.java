@@ -3,11 +3,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-// representa el foro académico
-// mantiene las publicaciones en memoria para que la aplicación las recorra rápido
-// cada acción que cambie datos como publicar y responder, se guarda en SQLite
-// para que la información no se pierda entre sesiones.
-
+/**
+ * representa el foro académico
+ * mantiene las publicaciones en memoria para que la aplicación las recorra rápido
+ * cada acción que cambie datos como publicar y responder, se guarda en SQLite
+ * para que la información no se pierda entre sesiones.
+ */
 public class Foro {
 
     private final List<Publicacion> publicaciones;

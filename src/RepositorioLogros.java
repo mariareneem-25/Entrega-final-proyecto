@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Lectura y escritura de los logros de los estudiantes, con control de quién puede consultarlos.
+ */
 public class RepositorioLogros {
 
     private final Controlaracceso acceso = new Controlaracceso();

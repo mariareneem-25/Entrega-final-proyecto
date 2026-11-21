@@ -3,11 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// pantalla de consola del foro académico
-// Main solo la crea y llama a abrir(); aquí vive todo el menú del foro
-// permisos: los estudiantes publican y comentan; tutores y docentes solo comentan
-// (los permisos salen de Usuario.puedePublicar() y Usuario.puedeComentar())
-
+/**
+ * pantalla de consola del foro académico
+ * Main solo la crea y llama a abrir(); aquí vive todo el menú del foro
+ * permisos: los estudiantes publican y comentan; tutores y docentes solo comentan
+ * (los permisos salen de Usuario.puedePublicar() y Usuario.puedeComentar())
+ */
 public class ForoConsola {
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM HH:mm");

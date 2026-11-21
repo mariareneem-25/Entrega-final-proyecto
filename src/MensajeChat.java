@@ -1,3 +1,6 @@
+/**
+ * Mensaje del chat de tutoría original; ver {@link HabilitarChat}.
+ */
 public class MensajeChat {
 
     private int idMensaje;

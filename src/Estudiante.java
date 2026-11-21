@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usuario estudiante: tiene carrera, año, horarios disponibles y logros.
+ * Es el único tipo de cuenta que puede publicar en el foro y hacerlo de forma anónima.
+ */
 public class Estudiante extends Usuario {
 
     private int anualidadCarrera;

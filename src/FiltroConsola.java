@@ -1,6 +1,9 @@
 import java.io.PrintStream;
 import java.text.Normalizer;
 
+/**
+ * Flujo de salida de la versión de consola que quita las tildes y los signos de apertura para que el texto se vea bien en terminales sin soporte de UTF-8.
+ */
 public class FiltroConsola extends PrintStream {
 
     public FiltroConsola(PrintStream salida) {

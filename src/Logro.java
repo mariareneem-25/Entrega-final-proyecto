@@ -1,3 +1,6 @@
+/**
+ * Objetivo de aprendizaje que registra un estudiante: tiene un tema y puede marcarse como completado.
+ */
 public class Logro {
 
     private String tema;

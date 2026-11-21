@@ -1,6 +1,9 @@
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Mensaje de un chat entre un estudiante y un tutor. Puede ser de texto o llevar un archivo adjunto (imagen, video u otro archivo).
+ */
 public class Mensaje {
 
     private final String id;

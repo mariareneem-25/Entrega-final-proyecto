@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Registro en memoria de las tutorías agendadas: permite agendar, consultar por estudiante o por tutor y cancelar.
+ * Pertenece a la versión original de consola; en la versión web las reservas se guardan con {@link CalendarioDAO}.
+ */
 public class AgendaTutorias {
 
     private List<Tutoria> tutorias;

@@ -4,8 +4,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-// copia los archivos que suben los usuarios a una carpeta propia de la aplicación,
-// separados por categoría. Se usa en el chat y queda listo para perfiles, foro y banner del tutor.
+/**
+ * copia los archivos que suben los usuarios a una carpeta propia de la aplicación,
+ * separados por categoría. Se usa en el chat y queda listo para perfiles, foro y banner del tutor.
+ */
 public class GestorArchivos {
 
     public enum Categoria {

@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// información que llena un estudiante registrado como tutor para pedir su aprobación
-// pasa por los estados BORRADOR (guardada, editable) -> PENDIENTE (enviada) -> APROBADO o RECHAZADO
-
+/**
+ * información que llena un estudiante registrado como tutor para pedir su aprobación
+ * pasa por los estados BORRADOR (guardada, editable) -> PENDIENTE (enviada) -> APROBADO o RECHAZADO
+ */
 public class SolicitudTutor {
 
     private final int idTutor;

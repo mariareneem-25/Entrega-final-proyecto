@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// pantallas de consola para cuidar la cuenta: actualizar perfil, eliminar perfil y reactivar cuenta
-// Main solo la crea y llama a actualizar(), eliminar() o reactivar()
-
+/**
+ * pantallas de consola para cuidar la cuenta: actualizar perfil, eliminar perfil y reactivar cuenta
+ * Main solo la crea y llama a actualizar(), eliminar() o reactivar()
+ */
 public class PerfilConsola {
 
     private final Scanner sc;

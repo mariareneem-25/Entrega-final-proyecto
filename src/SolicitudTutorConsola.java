@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// pantallas de consola de la solicitud de tutor
-// Main solo la crea y llama a gestionarAcceso() (tutores) o revisarSolicitudes() (docentes y directores)
-//
-// lado del tutor: llena su información, la guarda o la envía a un docente/director
-// lado del revisor: ve la información, la acepta, la rechaza (siempre con motivo) o regresa
-
+/**
+ * pantallas de consola de la solicitud de tutor
+ * Main solo la crea y llama a gestionarAcceso() (tutores) o revisarSolicitudes() (docentes y directores)
+ *
+ * <p>lado del tutor: llena su información, la guarda o la envía a un docente/director
+ * lado del revisor: ve la información, la acepta, la rechaza (siempre con motivo) o regresa
+ */
 public class SolicitudTutorConsola {
 
     private final Scanner sc;

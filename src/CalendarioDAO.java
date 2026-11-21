@@ -10,14 +10,15 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// calendario de estudiantes y tutores (tablas en proyecto.db)
-//
-// marcas: días que cada persona marca como OCUPADO o como FECHA DE PREFERENCIA (las edita ella misma)
-// reservas: tutorías acordadas entre un estudiante y un tutor; NO se editan a mano
-//           solo se crean cuando la otra persona acepta una solicitud hecha por el chat
-//           y solo se eliminan cuando la otra persona acepta una solicitud de eliminar
-// solicitudes_calendario: las solicitudes de reservar o eliminar una fecha que se mandan por el chat
-
+/**
+ * calendario de estudiantes y tutores (tablas en proyecto.db)
+ *
+ * <p>marcas: días que cada persona marca como OCUPADO o como FECHA DE PREFERENCIA (las edita ella misma)
+ * reservas: tutorías acordadas entre un estudiante y un tutor; NO se editan a mano
+ * solo se crean cuando la otra persona acepta una solicitud hecha por el chat
+ * y solo se eliminan cuando la otra persona acepta una solicitud de eliminar
+ * solicitudes_calendario: las solicitudes de reservar o eliminar una fecha que se mandan por el chat
+ */
 public class CalendarioDAO {
 
     public enum TipoMarca { OCUPADO, PREFERENCIA }

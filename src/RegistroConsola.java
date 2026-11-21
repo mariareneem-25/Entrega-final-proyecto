@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Pantalla de consola para registrar una cuenta nueva.
+ */
 public class RegistroConsola {
 
     private final Scanner sc;

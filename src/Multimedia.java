@@ -1,9 +1,10 @@
 import java.util.UUID;
 
-// representa un archivo adjunto (imagen o video) de una publicación
-// usar un solo tipo con un enum interno permite tener una lista mixta de imágenes y videos en Publicacion
-// sin necesitar dos listas separadas.
-
+/**
+ * representa un archivo adjunto (imagen o video) de una publicación
+ * usar un solo tipo con un enum interno permite tener una lista mixta de imágenes y videos en Publicacion
+ * sin necesitar dos listas separadas.
+ */
 public class Multimedia {
 
     private final String id;

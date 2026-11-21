@@ -1,3 +1,6 @@
+/**
+ * Tutoría agendada entre un estudiante y un tutor para una materia y un horario; puede cancelarse.
+ */
 public class Tutoria {
 
     private int idTutoria;

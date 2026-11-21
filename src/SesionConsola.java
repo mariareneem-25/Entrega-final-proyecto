@@ -1,6 +1,9 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Pantalla de consola para iniciar sesión y mostrar el menú de la cuenta.
+ */
 public class SesionConsola {
 
     private final Scanner sc;

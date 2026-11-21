@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-// conversación privada entre un estudiante y un tutor
+/**
+ * conversación privada entre un estudiante y un tutor
+ */
 public class Conversacion {
 
     private final String id;

@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usuario tutor: ofrece tutorías en las materias que imparte y su cuenta debe ser aprobada por un docente o director.
+ */
 public class Tutor extends Usuario {
 
     // Heredados de Usuario (NO se repiten aquí, ya vienen con "extends Usuario"):

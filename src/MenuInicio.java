@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Menú de inicio de la versión de consola (se activa con {@code --consola}): registro, inicio de sesión, reactivar cuenta y salir.
+ */
 public class MenuInicio {
 
     private final Scanner sc = new Scanner(System.in);

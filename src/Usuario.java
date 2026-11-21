@@ -1,3 +1,7 @@
+/**
+ * Clase base de los usuarios del dominio ({@link Estudiante}, {@link Tutor} y {@link Docente}).
+ * Define los permisos del foro y si la persona puede publicar de forma anónima.
+ */
 public abstract class Usuario {
 
     private String idUsuario;

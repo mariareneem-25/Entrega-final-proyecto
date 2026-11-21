@@ -3,8 +3,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-// maneja una única conexión a la base de datos SQLite del proyecto y crea las tablas del foro si todavía no existen
-
+/**
+ * maneja una única conexión a la base de datos SQLite del proyecto y crea las tablas del foro si todavía no existen
+ */
 public class DatabaseConnection {
 
     private static final String URL = "jdbc:sqlite:" + System.getProperty("nexo.foro", "tutorias.db");

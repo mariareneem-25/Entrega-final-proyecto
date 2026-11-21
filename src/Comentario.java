@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
-// representa una respuesta a una publicacion o a un comentario debajo de la publicacion
-// como es el mismo tipo, se pueden hacer hilos de comentarios para cumplir el proposito de conversacion en el foro 
-
+/**
+ * representa una respuesta a una publicacion o a un comentario debajo de la publicacion
+ * como es el mismo tipo, se pueden hacer hilos de comentarios para cumplir el proposito de conversacion en el foro
+ */
 public class Comentario implements Publicable {
 
     private final String id;

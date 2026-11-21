@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// guarda y recupera conversaciones y mensajes en SQLite (tutorias.db)
+/**
+ * guarda y recupera conversaciones y mensajes en SQLite (tutorias.db)
+ */
 public class ChatDAO {
 
     public ChatDAO() {

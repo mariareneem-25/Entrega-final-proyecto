@@ -1,7 +1,9 @@
 import java.util.List;
 import java.util.Optional;
 
-// lógica del chat entre estudiante y tutor
+/**
+ * lógica del chat entre estudiante y tutor
+ */
 public class ServicioChat {
 
     private final ChatDAO chatDAO;

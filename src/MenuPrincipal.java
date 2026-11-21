@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// decide qué opciones del menú principal ve cada tipo de cuenta
-// Main solo pide la lista y ejecuta lo que se elija
-// estudiante: buscar tutores, mis solicitudes y logros, chat, calendario
-// tutor: solicitudes de estudiantes, chat, calendario
-// docente y director: validan solicitudes de tutor (no tienen chat ni calendario)
-
+/**
+ * decide qué opciones del menú principal ve cada tipo de cuenta
+ * Main solo pide la lista y ejecuta lo que se elija
+ * estudiante: buscar tutores, mis solicitudes y logros, chat, calendario
+ * tutor: solicitudes de estudiantes, chat, calendario
+ * docente y director: validan solicitudes de tutor (no tienen chat ni calendario)
+ */
 public class MenuPrincipal {
 
     public static final String ACTUALIZAR_PERFIL = "Actualizar perfil";

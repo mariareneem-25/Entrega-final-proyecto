@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-// encapsula la lectura y escritura del foro académico hacia la base de datos SQLite
-// la clase Foro delega aquí cada vez que necesita persistir o recuperar información
-// esto es para no mezclar lógica de negocio con lógica de acceso a datos
-
+/**
+ * encapsula la lectura y escritura del foro académico hacia la base de datos SQLite
+ * la clase Foro delega aquí cada vez que necesita persistir o recuperar información
+ * esto es para no mezclar lógica de negocio con lógica de acceso a datos
+ */
 public class ForoDAO {
 
     public void guardarPublicacion(Publicacion p) {

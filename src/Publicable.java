@@ -1,9 +1,10 @@
 import java.time.LocalDateTime;
 
-// define el comportamiento compartido entre Publicacion y Comentario
-// ya que ambas manejan autor, contenido y anonimato de la misma manera
-// permite tratar publicaciones y comentarios de forma genérica sin que el resto del programa necesite saber cuál de las dos es
-
+/**
+ * define el comportamiento compartido entre Publicacion y Comentario
+ * ya que ambas manejan autor, contenido y anonimato de la misma manera
+ * permite tratar publicaciones y comentarios de forma genérica sin que el resto del programa necesite saber cuál de las dos es
+ */
 public interface Publicable {
 
     String getContenido();

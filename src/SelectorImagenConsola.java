@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-// versión temporal: la persona escribe la ruta o el nombre del archivo y se guarda como texto
-// todavía no se copia ni se valida el archivo
-
+/**
+ * versión temporal: la persona escribe la ruta o el nombre del archivo y se guarda como texto
+ * todavía no se copia ni se valida el archivo
+ */
 public class SelectorImagenConsola implements SelectorImagen {
 
     private final Scanner sc;

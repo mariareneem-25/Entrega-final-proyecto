@@ -3,6 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Validaciones de seguridad: correo institucional, requisitos de contraseña y cambio de contraseña verificando la actual.
+ */
 public class Seguridad {
 
     private static final String dominioInstitucional = "@uvg.edu.gt";

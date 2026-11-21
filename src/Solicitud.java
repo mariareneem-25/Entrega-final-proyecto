@@ -1,6 +1,9 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Solicitud de tutoría de un estudiante a un tutor sobre una materia, con su estado y el motivo cuando fue rechazada.
+ */
 public class Solicitud {
 
     public static final String CONSULTA =

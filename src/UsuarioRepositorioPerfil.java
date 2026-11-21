@@ -1,5 +1,7 @@
-// implementación de UsuarioRepositorio que lee los usuarios de Perfil_usuario (proyecto.db)
-// y los convierte a Estudiante/Tutor con AdaptadorUsuario
+/**
+ * implementación de UsuarioRepositorio que lee los usuarios de Perfil_usuario (proyecto.db)
+ * y los convierte a Estudiante/Tutor con AdaptadorUsuario
+ */
 public class UsuarioRepositorioPerfil implements UsuarioRepositorio {
 
     @Override

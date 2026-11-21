@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Chat de tutoría original, asociado a una solicitud aceptada. Fue reemplazado por {@link ServicioChat}, que además admite imágenes y archivos.
+ */
 public class HabilitarChat {
 
     private final Controlaracceso acceso = new Controlaracceso();

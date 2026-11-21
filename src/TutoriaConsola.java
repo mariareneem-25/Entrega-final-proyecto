@@ -2,13 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// pantallas de las solicitudes de tutoría entre estudiantes y tutores
-//
-// estudiante: buscar tutores (ver su perfil completo y su calendario) y solicitar tutoría,
-//             ver el estado de sus solicitudes y manejar sus logros
-// tutor: ver las solicitudes de estudiantes (con su perfil, logros y calendario), aceptarlas o rechazarlas
-//        al aceptar se abre el chat entre los dos; al rechazar solo le llega el mensaje al estudiante
-
+/**
+ * pantallas de las solicitudes de tutoría entre estudiantes y tutores
+ *
+ * <p>estudiante: buscar tutores (ver su perfil completo y su calendario) y solicitar tutoría,
+ * ver el estado de sus solicitudes y manejar sus logros
+ * tutor: ver las solicitudes de estudiantes (con su perfil, logros y calendario), aceptarlas o rechazarlas
+ * al aceptar se abre el chat entre los dos; al rechazar solo le llega el mensaje al estudiante
+ */
 public class TutoriaConsola {
 
     private final Scanner sc;

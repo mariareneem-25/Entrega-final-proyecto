@@ -5,10 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-// guarda y consulta las solicitudes de tutor en la tabla solicitudes_tutor
-// las columnas nuevas se crean en ConexionDB.crearTablas()
-// las reglas de quién puede aprobar o rechazar están en las consultas (solo el revisor elegido)
-
+/**
+ * guarda y consulta las solicitudes de tutor en la tabla solicitudes_tutor
+ * las columnas nuevas se crean en ConexionDB.crearTablas()
+ * las reglas de quién puede aprobar o rechazar están en las consultas (solo el revisor elegido)
+ */
 public class SolicitudTutorDAO {
 
     // devuelve null si el tutor todavía no ha guardado nada

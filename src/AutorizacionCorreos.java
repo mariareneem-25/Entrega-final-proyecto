@@ -26,6 +26,15 @@ public final class AutorizacionCorreos {
         for (String[] inicial : INICIALES) {
             WebDatos.ejecutar("INSERT OR IGNORE INTO correos_autorizados(correo, tipo) VALUES(?, ?)", inicial[0], inicial[1]);
         }
+        // Al desplegar, la propiedad nexo.directores (correos separados por coma) autoriza a los directores
+        // reales, para no depender del correo de ejemplo director1@uvg.edu.gt.
+        for (String correo : System.getProperty("nexo.directores", "").split(",")) {
+            String normalizado = correo.trim().toLowerCase(Locale.ROOT);
+            if (!normalizado.isEmpty() && Seguridad.esCorreoInstitucional(normalizado)) {
+                WebDatos.ejecutar("INSERT INTO correos_autorizados(correo, tipo) VALUES(?, 'director') "
+                        + "ON CONFLICT(correo) DO UPDATE SET tipo = 'director'", normalizado);
+            }
+        }
     }
 
     /** Tipo autorizado para el correo ("estudiante", "docente" o "director"), si existe. */

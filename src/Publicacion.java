@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
-// representa una pregunta publicada en el foro académico
-
+/**
+ * representa una pregunta publicada en el foro académico
+ */
 public class Publicacion implements Publicable {
 
     private static final int LIMITE_ADJUNTOS = 5;

@@ -4,7 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
- 
+
+/**
+ * Acceso a la base de datos principal ({@code proyecto.db}): abre conexiones, crea las tablas del sistema y ofrece una consulta de existencia.
+ * La ruta del archivo se puede cambiar con la propiedad del sistema {@code nexo.db}.
+ */
 public class ConexionDB {
     private static final String URL = "jdbc:sqlite:" + System.getProperty("nexo.db", "proyecto.db");
  

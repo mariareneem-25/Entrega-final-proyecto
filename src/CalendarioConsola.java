@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// pantallas del calendario de estudiantes y tutores
-// ver(): muestra el calendario (menú principal) | editar(): marcar días como ocupado o fecha de preferencia
-// (se abre desde "Actualizar perfil")
-//
-// las fechas RESERVADAS no se editan aquí: solo se crean y eliminan con solicitudes aceptadas en el chat
-
+/**
+ * pantallas del calendario de estudiantes y tutores
+ * ver(): muestra el calendario (menú principal) | editar(): marcar días como ocupado o fecha de preferencia
+ * (se abre desde "Actualizar perfil")
+ *
+ * <p>las fechas RESERVADAS no se editan aquí: solo se crean y eliminan con solicitudes aceptadas en el chat
+ */
 public class CalendarioConsola {
 
     private static final int MAXIMO_DIAS_POR_RANGO = 62;

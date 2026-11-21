@@ -1,3 +1,6 @@
+/**
+ * Tipo de archivo adjunto de una publicación: imagen o video.
+ */
 public enum TipoMultimedia {
     IMAGEN,
     VIDEO
